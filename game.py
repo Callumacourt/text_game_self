@@ -73,7 +73,11 @@ def display_room(room):
 
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
-    # pass # The pass statement does nothing. Replace it with the body of your function.
+    print()
+    print(room["name"].upper())
+    print()
+    print (room["description"])
+    print()
 
     
 def exit_leads_to(exits, direction):
@@ -104,7 +108,7 @@ def print_menu_line(direction, leads_to):
     >>> print_menu_line("south", "MJ and Simon's room")
     Go SOUTH to MJ and Simon's room.
     """
-    pass
+    print("Go " + str(direction).upper() + " to " + str(leads_to) + ".")
 
 
 def print_menu(exits):
@@ -217,3 +221,4 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 if __name__ == "__main__":
     main()
+
