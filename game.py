@@ -17,6 +17,7 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
+    return ''.join(char for char in text if char not in string.punctuation)
     
     
 def remove_spaces(text):
@@ -35,6 +36,7 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
+    return text.strip()
 
 
 def normalise_input(user_input: str):
@@ -49,7 +51,12 @@ def normalise_input(user_input: str):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    return str(user_input).lower().translate(str.maketrans('', '', string.punctuation)).strip()
+    # Remove punctuation
+    no_punctuation = remove_punct(user_input)
+    # Remove spaces
+    no_spaces = remove_spaces(no_punctuation)
+    # Convert result to lower case
+    return no_spaces.lower()
 
     
 def display_room(room):
