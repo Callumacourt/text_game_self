@@ -17,7 +17,6 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    pass # The pass statement does nothing. Replace it with the body of your function.
     
     
 def remove_spaces(text):
@@ -36,10 +35,9 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    pass
 
 
-def normalise_input(user_input):
+def normalise_input(user_input: str):
     """This function removes all punctuation, leading and trailing
     spaces from a string, and converts the string to lower case.
     For example:
@@ -51,7 +49,7 @@ def normalise_input(user_input):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    pass
+    return str(user_input).lower().translate(str.maketrans('', '', string.punctuation)).strip()
 
     
 def display_room(room):
@@ -92,7 +90,7 @@ def exit_leads_to(exits, direction):
     >>> exit_leads_to(rooms["Tutor"]["exits"], "west")
     'Reception'
     """
-    pass
+    return exits[direction]
     
 
 def print_menu_line(direction, leads_to):
@@ -127,10 +125,12 @@ def print_menu(exits):
     Where do you want to go?
     """
     print("You can:")
-    
-    # COMPLETE THIS PART:
-    # Iterate over available exits:
-    #     and for each exit print the appropriate menu line
+
+    for direction in exits:
+        # Get the room that the exit leads to
+        leads_to = exit_leads_to(exits, direction)
+        # Print the menu line
+        print_menu_line(direction, leads_to)
 
     print("Where do you want to go?")
 
@@ -151,7 +151,10 @@ def is_valid_exit(exits, user_input):
     >>> is_valid_exit(rooms["Parking"]["exits"], "east")
     True
     """
-    pass
+    if user_input in exits:
+        return True
+    else:
+        return False
 
 
 def menu(exits):
@@ -166,17 +169,20 @@ def menu(exits):
 
     # Repeat until the player enter a valid choice
     while True:
-        pass
-        # COMPLETE THIS PART:
-        
-        # Display menu
+        print_menu(exits)
 
         # Read player's input
-
+        desired_exit = input("Where do you want to go next?")
         # Normalise the input
+        desired_exit = normalise_input(desired_exit)
 
         # Check if the input makes sense (is valid exit)
+        if is_valid_exit(exits, desired_exit):
             # If so, return the player's choice
+            return desired_exit
+        else:
+            print("Invalid exit")
+            continue
 
 
 
@@ -193,7 +199,15 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    pass
+    # because of the difference in room name in the rooms dictionary and the exits, had to do this. 
+    if direction in exits: 
+        room_name = exits[direction]  
+        for key, room in rooms.items(): 
+            if room["name"] == room_name:  
+                return room  
+    return None  
+
+    
 
 
 # This is the entry point of our program
@@ -221,4 +235,3 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 if __name__ == "__main__":
     main()
-
