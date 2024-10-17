@@ -139,8 +139,6 @@ def print_menu(exits):
         # Print the menu line
         print_menu_line(direction, leads_to)
 
-    print("Where do you want to go?")
-
 
 def is_valid_exit(exits, user_input):
     """This function checks, given a dictionary "exits" (see map.py) and
